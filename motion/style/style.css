@@ -1,0 +1,113 @@
+:root {
+  --bg-main-color: #00000080;
+  --bg-accent-color: #2d2d2d;
+  --accent-color: #f64435;
+  --text-accent-color: #ffe498;
+  --text-edit-bg-color: #575757;
+  --border-color: #3f3f3f;
+  --shadow-color: #202020;
+  --document-bg-color: #68686850;
+  --smokywhite: #dddbd8;
+  --black: #000000;
+  --white: #ffffff;
+  --translucent-black: #00000099;
+  --component-bg-color-yellow: #f7d44c;
+  --component-bg-color-salmon: #eb7a53;
+  --component-bg-color-blue: #98b7db;
+  --component-bg-color-green: #a8d672;
+  --component-bg-color-beige: #f6ecc9;
+}
+
+* {
+  outline: none;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--black);
+  font-family: Roboto, Oxygen, sans-serif;
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+  overflow: hidden;
+  font-size: 1.25rem;
+  margin: 0;
+}
+
+ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+p {
+  color: var(--smokywhite);
+}
+
+lable {
+  color: var(--text-accent-color);
+}
+
+.app {
+  width: 100%;
+  max-width: 1000px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.banner {
+  background-color: transparent;
+  border-bottom: 1px solid var(--bg-accent-color);
+  text-align: center;
+}
+
+.banner__title {
+  margin: 2rem;
+  color: var(--white);
+}
+
+.control-panel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.create-button {
+  margin: 0.1rem 0.2rem;
+  text-align: center;
+  user-select: none;
+  padding: 1rem 3rem;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 0.8rem;
+  color: var(--white);
+  background-color: transparent;
+  border: 2px solid var(--white);
+  border-radius: 50px;
+}
+
+.document {
+  color: white;
+  height: 100%;
+  overflow-y: auto;
+  /* Firefox */
+  scrollbar-width: 6px;
+  scrollbar-color: var(--bg-accent-color);
+  scrollbar-face-color: var(--accent-color);
+}
+
+.document::-webkit-scrollbar {
+  /* Safari and Chrome */
+  background-color: var(--bg-accent-color);
+  width: 6px;
+}
+
+.document::-webkit-scrollbar-thumb {
+  /* Safari and Chrome */
+  background-color: var(--accent-color);
+}
+
+.footer {
+  border-top: 1px solid var(--border-color);
+  text-align: center;
+}
