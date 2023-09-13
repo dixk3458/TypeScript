@@ -1,14 +1,13 @@
-export class ImageComponent {
-  private element: HTMLElement;
+import { BaseComponent } from '../../component.js';
+
+export class ImageComponent extends BaseComponent<HTMLElement> {
   constructor(title: string, url: string) {
-    const templete = document.createElement('template');
-    templete.innerHTML = `<section class="image">
+    super(`<section class="image">
     <div class="image__holder">
       <img class="image__thumbnail" />
       <p class="image__title"></p>
     </div>
-  </section>`;
-    this.element = templete.content.firstElementChild! as HTMLElement;
+    </section>`);
     const imageElement = this.element.querySelector(
       '.image__thumbnail'
     )! as HTMLImageElement;
@@ -18,9 +17,5 @@ export class ImageComponent {
       '.image__title'
     )! as HTMLParagraphElement;
     titleElement.textContent = title;
-  }
-
-  attachTo(parent: HTMLElement, position: InsertPosition = 'afterbegin') {
-    parent.insertAdjacentElement(position, this.element);
   }
 }
