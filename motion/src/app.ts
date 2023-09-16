@@ -1,4 +1,5 @@
 import { Component } from './components/component.js';
+import { InputDialog } from './components/dialog/dialog.js';
 import { ImageComponent } from './components/page/item/image.js';
 import { NoteComponent } from './components/page/item/note.js';
 import { TodoComponent } from './components/page/item/todo.js';
@@ -19,19 +20,34 @@ class App {
       'Image Title',
       'https://picsum.photos/600/300'
     );
+    this.page.addChild(image);
+
     const note = new NoteComponent('Note Title', 'Note Body');
+    this.page.addChild(note);
 
     const todo = new TodoComponent('Todo Title', 'Todo');
+    this.page.addChild(todo);
 
     const video = new VideoComponent(
       'Video Title',
       'https://youtu.be/FQZhehVRSXQ'
     );
-
-    this.page.addChild(image);
-    this.page.addChild(note);
-    this.page.addChild(todo);
     this.page.addChild(video);
+
+    const imageBtn = document.querySelector('#new-image')! as HTMLButtonElement;
+    imageBtn.addEventListener('click', () => {
+      const dialog = new InputDialog();
+
+      dialog.setCloseListener(() => {
+        dialog.removeFrom(document.body);
+      });
+
+      dialog.setSubmitListener(() => {
+        dialog.removeFrom(document.body);
+      });
+
+      dialog.attachTo(document.body);
+    });
   }
 }
 
