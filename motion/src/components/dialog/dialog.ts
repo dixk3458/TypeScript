@@ -35,7 +35,7 @@ export class InputDialog
   }
 
   addChild(child: Component): void {
-    const body = this.element.querySelector('dialog__body')! as HTMLElement;
+    const body = this.element.querySelector('.dialog__body')! as HTMLElement;
     child.attachTo(body);
   }
 
