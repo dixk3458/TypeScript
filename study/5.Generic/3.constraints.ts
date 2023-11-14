@@ -1,62 +1,57 @@
-// interface Employee {
-//   pay(): void;
-// }
+// 세부적인 타입을 인자로 받아서 다시 추상적인 타입을 return 하는것은 💩💩💩
 
-// class FullTimeEmployee implements Employee {
-//   pay(): void {
-//     console.log('FullTime Employee');
-//   }
-//   workFullTime() {}
-// }
+// 안좋은 예시
 
-// class PartTimeEmployee implements Employee {
-//   pay(): void {
-//     console.log('PartTime Employee');
-//   }
-
-//   workPartTime() {}
-// }
-
-// function pay(employee: Employee) {
-//   employee.pay();
-//   return employee;
-// }
-
-// const jaewoong = new FullTimeEmployee();
-// const jaewoongAfterPay = pay(jaewoong);
-// // 돈을 받고 난 후 workFullTime()이 사라진것을 볼수있다.
-// // pay()함수는 인자로 구체적인것부터 추상적인것까지 받을수있다. 하지만 return은 employee타입 즉 추상적인것을 리턴하기에
-// // interface에서 규약한내용만 구현한 instance가 반환된다.
-// jaewoongAfterPay.pay();
-
-// --------------------------------------------------------------------------------------------
-
+// 다양한 직원을 구현해주는 Employee
 interface Employee {
   pay(): void;
 }
 
 class FullTimeEmployee implements Employee {
   pay(): void {
-    console.log('FullTime Employee');
+    console.log('Full Time!');
   }
-  workFullTime() {}
+
+  workFullTime(): void {
+    console.log('Full Time Work');
+  }
 }
 
 class PartTimeEmployee implements Employee {
   pay(): void {
-    console.log('PartTime Employee');
+    console.log('Part Time!');
   }
 
-  workPartTime() {}
+  workPartTime(): void {
+    console.log('Part Time Work');
+  }
 }
 
-function pay<T extends Employee>(employee: T) {
+// 일반적인 타입이긴한데, Employee를 확장한 타입만 가능하도록 계약해주자.
+
+function pay<T extends Employee>(employee: T): T {
   employee.pay();
   return employee;
 }
 
 const jaewoong = new FullTimeEmployee();
-const jaewoongAfterPay = pay(jaewoong);
+const bob = new PartTimeEmployee();
 
-jaewoongAfterPay.pay();
+const jaewoongAfterPay = pay(jaewoong);
+const bobAfterPay = pay(bob);
 jaewoongAfterPay.workFullTime();
+bobAfterPay.workPartTime();
+
+class AnotherPerson {
+  constructor(private name: string, private age: number) {}
+  greeting(): void {
+    console.log(`안녕 나는 ${this.name}이야`);
+  }
+  pay(): void {
+    console.log(this.name);
+  }
+}
+
+const jaehyeon = new AnotherPerson('재현', 25);
+const jaehyeonAfterPay = pay(jaehyeon);
+
