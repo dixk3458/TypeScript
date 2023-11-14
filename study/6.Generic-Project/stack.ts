@@ -1,66 +1,68 @@
 {
   interface Stack<T> {
     readonly size: number;
+
     push(value: T): void;
     pop(): T;
   }
 
-  type StackNode<T> = {
+  type Node<T> = {
     readonly value: T;
-    readonly next?: StackNode<T>;
+    readonly nextNode?: Node<T>;
   };
 
   class StackImpl<T> implements Stack<T> {
     private _size: number = 0;
+
     get size(): number {
       return this._size;
     }
 
-    private head?: StackNode<T>;
+    private top?: Node<T>;
 
     push(value: T): void {
-      const node = {
-        value,
-        next: this.head,
+      const newNode: Node<T> = {
+        value: value,
+        nextNode: this.top,
       };
-
-      this.head = node;
-      this._size++;
+      this.top = newNode;
+      this._size = this._size + 1;
     }
+
     pop(): T {
-      this._size--;
-      if (this.head == null) {
+      if (this.top == null) {
         throw new Error('스택이 비어있습니다.');
       }
-      const node: StackNode<T> = {
-        value: this.head.value,
-        next: this.head.next,
+      const returnNode: Node<T> = {
+        value: this.top?.value,
+        nextNode: this.top?.nextNode,
       };
 
-      if (node.value == null) {
-        throw new Error('잘못된 값');
-      }
-
-      this.head = node.next;
-      return node.value;
+      this.top = returnNode.nextNode;
+      this._size = this._size - 1;
+      return returnNode.value;
     }
   }
 
-  const stack = new StackImpl<string>();
-  stack.push('정재웅 1');
-  stack.push('김지헌 2');
-  stack.push('이승현 3');
+  const unknownStack = new StackImpl();
 
-  while (stack.size) {
-    console.log(stack.pop());
+  unknownStack.push('정재웅');
+  unknownStack.push({ name: '이승현', age: 25 });
+  unknownStack.push(['🐯']);
+  unknownStack.push(5);
+
+  while (unknownStack.size !== 0) {
+    console.log(unknownStack.pop());
   }
 
-  const stack2 = new StackImpl<number>();
-  stack2.push(1);
-  stack2.push(3);
-  stack2.push(4);
+  const stringStack = new StackImpl<string>();
 
-  while (stack2.size) {
-    console.log(stack2.pop());
+  stringStack.push('정재웅');
+  stringStack.push('이승현');
+  stringStack.push('이승현');
+  stringStack.push('이승현');
+
+  while (stringStack.size !== 0) {
+    console.log(stringStack.pop());
   }
 }
